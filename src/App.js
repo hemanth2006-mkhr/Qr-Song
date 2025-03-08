@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
+import emailjs from "emailjs-com";
 
 export default function QRScanGreeting() {
   const [userName, setUserName] = useState("");
@@ -49,9 +50,33 @@ export default function QRScanGreeting() {
   ];
   const randomSong = spotifySongs[Math.floor(Math.random() * spotifySongs.length)];
 
+  const sendEmail = () => {
+    const templateParams = {
+      username: userName, // Pass the username to email
+      song_link: randomSong, 
+    };
+
+    emailjs
+      .send(
+        "service_7g425dg", // Replace with your EmailJS Service ID
+        "template_xmdpnz3", // Replace with your EmailJS Template ID
+        templateParams,
+        "GjuxzRl3XGXSi9UsU" // Replace with your EmailJS User ID
+      )
+      .then(
+        (response) => {
+          console.log("✅ Email sent successfully!", response.status, response.text);
+        },
+        (error) => {
+          console.error("❌ Error sending email:", error);
+        }
+      );
+  };
+
   const handleSubmit = () => {
     if (userName.trim() !== "") {
       setSubmitted(true);
+      sendEmail(); // Call the email function after submitting
     } else {
       alert("Please enter your name.");
     }
