@@ -1,73 +1,61 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 
 export default function QRScanGreeting() {
   const [userName, setUserName] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [backgroundStyle, setBackgroundStyle] = useState({ background: "linear-gradient(90deg, #4F46E5, #D946EF, #EC4899)" });
-  const audioRef = useRef(null);
+  const [backgroundStyle, ] = useState({ background: "linear-gradient(90deg, #4F46E5, #D946EF, #EC4899)" });
 
-  const songs = [
-    "https://masstamilan.dev/downloader/XtJXTCdOTqVluZXhDNlp8w/1741360009/d320_cdn/24279/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/qozdTY5ks80Wfzpsd46qdw/1741360929/d320_cdn/9737/MjAwMTo0ODYwOjc6NDA1OjpkOA==",
-    "https://masstamilan.dev/downloader/ZXu-hSL-WlvyiLGKxZ6eeA/1741361046/d320_cdn/9778/MjQwOTo0MGY0OjQwZGM6NjhhNDo4MDAwOjo=",
-    "https://masstamilan.dev/downloader/ZXu-hSL-WlvyiLGKxZ6eeA/1741361046/d320_cdn/9773/MjQwOTo0MGY0OjQwZGM6NjhhNDo4MDAwOjo=",
-    "https://masstamilan.dev/downloader/ILBBbSjJaTmDoWfugtUYSg/1741361133/d320_cdn/32437/MTU3LjQ5LjIyNy4xMTE=",
-    "https://masstamilan.dev/downloader/JNBYMfhNzTHssj8eTkxhGQ/1741361171/d320_cdn/21908/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/YASARg8NltxQody39bn7TQ/1741361163/d320_cdn/3240/MjQwMTo0OTAwOjFjMjk6N2QyMDo4OGIzOmRkZWU6NWY2Mjo1Y2Fm",
-    "https://masstamilan.dev/downloader/BY1URm7hh9JFyvlqRR61Bw/1741361220/d320_cdn/22204/MjQwMTo0OTAwOjU2MTg6YWQ3Njo2ODY3OmU2ZmY6ZmViZDpmYWNl",
-    "https://masstamilan.dev/downloader/jlkX70Mn8T8YjiDYEFqNEA/1741361311/d320_cdn/21168/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/jlkX70Mn8T8YjiDYEFqNEA/1741361311/d320_cdn/21170/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/t7q1PjyS0VqRFcJ73Zqa7Q/1741361360/d320_cdn/7890/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/t7q1PjyS0VqRFcJ73Zqa7Q/1741361360/d320_cdn/7892/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/Wf7Ndgr4sUG3n71zf2Eupw/1741361434/d320_cdn/24693/MjQwMTo0OTAwOjkyNDg6N2QwYjo5Y2RiOmRiZTE6YzE4Mzo4NGI2",
-    "https://masstamilan.dev/downloader/qEiXG6kAVItLeLmLmOruoQ/1741361460/d320_cdn/6799/MTUyLjU4LjI0Ni40Nw==",
+  const myStyle = {
+    backgroundImage:
+        "url('https://wallpapers.com/images/featured/portrait-photography-background-8havpbr5k0u2fbb9.jpg')",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+};
+
+  const spotifySongs = [
+    "https://open.spotify.com/embed/track/5Y7Y315vZkOZbesJ22jXkK?utm_source=generator",
+    "https://open.spotify.com/embed/track/4tU15AbFbtTSScUXJ2G28O?utm_source=generator",
+    "https://open.spotify.com/embed/track/7nRFeG20drpHn9CqPuRVJ6?utm_source=generator",
+    "https://open.spotify.com/embed/track/2dRj9RAkUWmsWeYnKR1ohe?utm_source=generator",
+    "https://open.spotify.com/embed/track/09Z6o1yu596HJAwWZxTz4m?utm_source=generator",
+    "https://open.spotify.com/embed/track/5DYfTyqUNBmOnQtljQjYk2?utm_source=generator",
+    "https://open.spotify.com/embed/track/0FTPiuMAGuvXVjeXh7g8ot?utm_source=generator",
+    "https://open.spotify.com/embed/track/45THyhjDbYhNU7bDrTTUK6?utm_source=generator",
+    "https://open.spotify.com/embed/track/1AbSrAwrzuC3FcDXoYi3ED?utm_source=generator",
+    "https://open.spotify.com/embed/track/5HgXSvl2YoBtEY623UsACk?utm_source=generator",
+    "https://open.spotify.com/embed/track/2uMh5DHeh70RoQ572k5oPI?utm_source=generator",
+    "https://open.spotify.com/embed/track/3IpEJ86hrMfUcoXCk9U4h3?utm_source=generator",
+    "https://open.spotify.com/embed/track/6t2rDXyJZUD6uTp7P8e6Z4?utm_source=generator",
+    "https://open.spotify.com/embed/track/22yZ031igTDdn2Q6mSG79Y?utm_source=generator",
+    "https://open.spotify.com/embed/track/0xttqqTj7ZAGyVkfOYxQ4F?utm_source=generator",
+    "https://open.spotify.com/embed/track/1L5jOr4vqumGibHTQtVwWq?utm_source=generator",
+    "https://open.spotify.com/embed/track/5TL3UHuEBRMPbAIAOiPJmc?utm_source=generator",
+    "https://open.spotify.com/embed/track/65dvxc4Kctq3JIJ2BkKKMj?utm_source=generator",
+    "https://open.spotify.com/embed/track/72niNpc1LP2DEqaF118U7M?utm_source=generator",
+    "https://open.spotify.com/embed/track/0KrKZB1EpquuWxhEU2nesa?utm_source=generator",
+    "https://open.spotify.com/embed/track/0523YjBhkcVoAGONOUFrf6?utm_source=generator",
+    "https://open.spotify.com/embed/track/7daqDwcy1W8UUdqgFAYB6P?utm_source=generator",
+    "https://open.spotify.com/embed/track/5anRo1ZiyrQ79IFT5jyATP?utm_source=generator",
+    "https://open.spotify.com/embed/track/6id01ayZW6GNqKTYDvVREN?utm_source=generator",
+    "https://open.spotify.com/embed/track/1Nr46gjiP50uPsz30gYhAd?utm_source=generator",
+    "https://open.spotify.com/embed/track/0iJPMG79hgWnDHjufnoplb?utm_source=generator",
+    "https://open.spotify.com/embed/track/4wCy7erulqUfFQNVaZBD9b?utm_source=generator",
+    "https://open.spotify.com/embed/track/6TQS7URegxmcb8tTNpoXzi?utm_source=generator",
+    "https://open.spotify.com/embed/track/7e97QgqoYTXOj1s7JI0dHR?utm_source=generator",
+    "https://open.spotify.com/embed/track/5XbHpOBN1vTU3hN1YzLqHL?utm_source=generator",
+    "https://open.spotify.com/embed/track/5z1MmQVl17aPPi3VHL5C5Z?utm_source=generator",
+    "https://open.spotify.com/embed/track/1AzNN19lPYC68iacrbWL8X?utm_source=generator",
   ];
-  const randomSong = songs[Math.floor(Math.random() * songs.length)];
+  const randomSong = spotifySongs[Math.floor(Math.random() * spotifySongs.length)];
 
   const handleSubmit = () => {
     if (userName.trim() !== "") {
       setSubmitted(true);
-      setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.play();
-        }
-      }, 500);
     } else {
       alert("Please enter your name.");
     }
   };
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioContext.createAnalyser();
-      const source = audioContext.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      analyser.fftSize = 256;
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-
-      const animate = () => {
-        analyser.getByteFrequencyData(dataArray);
-        const avg = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const intensity = Math.min(255, Math.floor(avg * 2));
-        setBackgroundStyle({
-          background: `linear-gradient(90deg, rgb(${intensity}, 70, 230), rgb(${intensity}, 100, 239), rgb(236, 72, ${intensity}))`,
-          transition: "background 0.2s ease-in-out"
-        });
-        requestAnimationFrame(animate);
-      };
-      audio.addEventListener("play", () => {
-        if (audioContext.state === "suspended") {
-          audioContext.resume();
-        }
-        animate();
-      });
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-white p-6 transition-all duration-500 w-full" style={backgroundStyle}>
@@ -89,19 +77,15 @@ export default function QRScanGreeting() {
           </button>
         </div>
       ) : (
-        <div className="text-center bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full">
-          <h2 className="text-4xl font-extrabold text-purple-700">Welcome, {userName}!</h2>
-          <p className="text-lg text-gray-700 mt-4">Your dedicated song:</p>
-          <div className="mt-6 p-6 bg-gray-100 rounded-xl shadow-md flex flex-col items-center w-full">
-            <div className="relative w-full max-w-xs bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg shadow-lg flex items-center justify-center">
-              <audio
-                ref={audioRef}
-                className="w-full bg-white p-4 rounded-lg shadow-md"
-                controls
-                src={randomSong}
-                autoPlay
-              ></audio>
-            </div>
+        <div className="text-center bg-white p-10 rounded-3xl shadow-2xl max-w-md w-full" style={myStyle}>
+          <h2 className="text-4xl font-extrabold text-red-800 outline-4 ">Welcome, {userName}!</h2>
+          <p className="text-lg text-gray-700 mt-4 font-bold">Your dedicated song 🎶 :) </p>
+          <div className="mt-6 p-6 rounded-xl flex flex-col items-center w-full">
+          <iframe style={{ borderRadius: "12px" }} src={randomSong}
+          width="280px" height="322" frameBorder="0" allowFullScreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy" title="Spotify Song">
+          </iframe>
           </div>
         </div>
       )}
